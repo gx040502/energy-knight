@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://db26684n6rv07"]
+
+[ext_resource type="Script" uid="uid://byo8nldhcno8q" path="res://GyapXun/room/scripts/door.gd" id="1_8k4ff"]
+
+[node name="Door" type="Area2D" unique_id=499889784]
+collision_layer = 0
+script = ExtResource("1_8k4ff")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=873212590]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

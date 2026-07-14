@@ -15,6 +15,10 @@ run/main_scene="uid://qse5uo27w8f2"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Events="*uid://djqkj3nluk28a"
+
 [display]
 
 window/subwindows/embed_subwindows=false
@@ -52,6 +56,11 @@ left={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="wall"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -59,3 +68,4 @@ left={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/default_filters/use_nearest_mipmap_filter=true

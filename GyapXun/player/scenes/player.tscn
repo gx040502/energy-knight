@@ -22,9 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://ekbas0j25cue" path="res://GyapXun/animations/walk/walk3.png" id="16_5p363"]
 [ext_resource type="Texture2D" uid="uid://b60cive1napwr" path="res://GyapXun/animations/walk/walk4.png" id="17_bfa6d"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8nig"]
-size = Vector2(36, 68)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_chlmu"]
 animations = [{
 "frames": [{
@@ -116,6 +113,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8nig"]
+size = Vector2(25, 30)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv6y3"]
 bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
 
@@ -123,17 +123,18 @@ bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
 bg_color = Color(0.6, 0.6, 0.07450981, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=629869734]
+collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_nmnwo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=944439433]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_o8nig")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=370924242]
 sprite_frames = SubResource("SpriteFrames_chlmu")
 animation = &"dash"
 frame_progress = 0.73917574
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=944439433]
+position = Vector2(3.5, 1)
+shape = SubResource("RectangleShape2D_o8nig")
 
 [node name="Timer" type="Timer" parent="." unique_id=517186572]
 wait_time = 0.12
