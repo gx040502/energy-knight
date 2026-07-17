@@ -38,7 +38,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HPMarginContainer" type="MarginContainer" parent="Control" unique_id=1428542470]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 20)
 layout_mode = 0
 offset_left = 7.0
@@ -88,6 +87,7 @@ layout_mode = 2
 texture = ExtResource("2_o7clo")
 
 [node name="EnergyBar" type="TextureProgressBar" parent="Control2/EnergyMarginContainer/NinePatchRect" unique_id=521029506]
+unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15

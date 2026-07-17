@@ -45,6 +45,11 @@ animations = [{
 "name": &"dash",
 "speed": 12.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_ugyp0")
@@ -122,6 +127,7 @@ script = ExtResource("1_nmnwo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=370924242]
 sprite_frames = SubResource("SpriteFrames_chlmu")
 animation = &"dash"
+frame_progress = 0.73917574
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=944439433]
 position = Vector2(3.5, 1)

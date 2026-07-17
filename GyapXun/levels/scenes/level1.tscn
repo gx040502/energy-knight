@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bykrmqw17t51e" path="res://GyapXun/room/scenes/dungeon_room.tscn" id="2_gkgut"]
 [ext_resource type="PackedScene" uid="uid://dskaeqmjmwpj8" path="res://GyapXun/room/scenes/haaland_room.tscn" id="3_icauj"]
 [ext_resource type="Script" uid="uid://k7rfvfeqvsmi" path="res://GyapXun/levels/scripts/camera_2d.gd" id="4_iq3gp"]
-[ext_resource type="Texture2D" uid="uid://lkyye0u3m5qu" path="res://icon.svg" id="5_icauj"]
 
 [node name="Level1" type="Node2D" unique_id=847418784]
 script = ExtResource("1_mwkg1")
@@ -16,10 +15,6 @@ position = Vector2(3, -5)
 
 [node name="Player" parent="." unique_id=629869734 instance=ExtResource("1_7oqau")]
 position = Vector2(289, 222)
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1700359915]
-position = Vector2(264, -362)
-texture = ExtResource("5_icauj")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1558679386]
 position = Vector2(-174, -104)

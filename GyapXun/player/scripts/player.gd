@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 @onready var player_anim = $AnimatedSprite2D
-@onready var dash_timer = $Timer # Updated to match your screenshot!
-@onready var stamina_bar = $ProgressBar
+@onready var dash_timer = $Timer 
+@onready var energy_bar = $Hud/%EnergyBar
+@onready var health_bar = $Hud/%HPBar
 
 # Movement Speeds
 const WALK_SPEED = 300.0
@@ -21,9 +22,15 @@ var dash_cost = 25.0       # Costs 25 stamina instantly
 var sprint_cost = 30.0     # Drains 30 stamina per second
 var stamina_regen = 15.0   # Recovers 15 stamina per second
 
+# --- NEW HEALTH SYSTEM ---
+var max_health = 100.0
+var current_health = 10.0
+var health_regen = 1.0   # Recovers exactly 1 HP per second
+
 func _ready(): 
 	player_anim.play("idle")
-	stamina_bar.value = current_stamina
+	energy_bar.value = current_stamina
+	health_bar.value = current_health
 	
 func _physics_process(delta: float) -> void:
 	# 1. Get movement input
@@ -63,7 +70,7 @@ func _physics_process(delta: float) -> void:
 
 		# Clamp stamina so it never goes below 0 or above max_stamina
 		current_stamina = clamp(current_stamina, 0, max_stamina)
-		stamina_bar.value = current_stamina
+		energy_bar.value = current_stamina
 
 		velocity = direction * current_speed
 		
@@ -80,6 +87,11 @@ func _physics_process(delta: float) -> void:
 				player_anim.flip_h = false
 		else:
 			player_anim.play("idle") 
+		
+		if current_health < max_health and current_health > 0:
+			current_health += health_regen * delta
+			current_health = clamp(current_health, 0, max_health)
+			health_bar.value = current_health
 
 	# 4. Move the character
 	move_and_slide()
