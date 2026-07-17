@@ -1,6 +1,55 @@
 [gd_scene format=3 uid="uid://c7tkcua3yyfid"]
 
 [ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/background.png" id="1_2nr4e"]
+[ext_resource type="Script" uid="uid://c2hgii5i016mw" path="res://Sinyen/scenes/level_selection.gd" id="1_lmy5v"]
+[ext_resource type="FontFile" uid="uid://dby7gfrwp6wjr" path="res://Sinyen/PixelOperator-Bold.ttf" id="3_1s5lq"]
+[ext_resource type="FontFile" uid="uid://c7ls8p3n0t5uc" path="res://Sinyen/PixelOperator.ttf" id="4_3tsm6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s5lq"]
+bg_color = Color(0, 0, 0, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tsm6"]
+bg_color = Color(0.72156864, 0.5254902, 0.043137256, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk4g8"]
+bg_color = Color(0.47843137, 0.36078432, 0.09803922, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulf2q"]
+bg_color = Color(0, 0, 0, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlyr6"]
+bg_color = Color(0.72156864, 0.5254902, 0.043137256, 0.9019608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjpye"]
+bg_color = Color(0.47843137, 0.36078432, 0.09803922, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d73wq"]
+bg_color = Color(0, 0, 0, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkafy"]
+bg_color = Color(0.72156864, 0.5254902, 0.043137256, 0.9019608)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvffx"]
+bg_color = Color(0.47843137, 0.36078432, 0.09803922, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjqyl"]
+bg_color = Color(0, 0, 0, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_su1x1"]
+bg_color = Color(0.72156864, 0.5254902, 0.043137256, 0.9019608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnxlp"]
+bg_color = Color(0.47843137, 0.36078432, 0.09803922, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nglqg"]
+bg_color = Color(0, 0, 0, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgdk7"]
+bg_color = Color(0.16862746, 0.12941177, 0.09411765, 0.9019608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o6jn"]
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.8235294)
 
 [node name="LevelSelection" type="Control" unique_id=2056743195]
 layout_mode = 3
@@ -9,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lmy5v")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1956137253]
 layout_mode = 1
@@ -21,7 +71,112 @@ texture = ExtResource("1_2nr4e")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Label" type="Label" parent="." unique_id=1071518523]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.5
+offset_top = 61.0
+offset_right = 237.5
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_1s5lq")
+theme_override_font_sizes/font_size = 52
+text = "Please select the Level"
+
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1278652937]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -96.0
+offset_right = 196.5
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 50
+columns = 2
+
+[node name="level1Button" type="Button" parent="GridContainer" unique_id=903746440]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_fonts/font = ExtResource("4_3tsm6")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_1s5lq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3tsm6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lk4g8")
+text = "Level 1"
+
+[node name="level2Button" type="Button" parent="GridContainer" unique_id=1490778278]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_fonts/font = ExtResource("4_3tsm6")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_ulf2q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wlyr6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xjpye")
+text = "Level 2"
+
+[node name="level3Button" type="Button" parent="GridContainer" unique_id=1364317344]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_fonts/font = ExtResource("4_3tsm6")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_d73wq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xkafy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cvffx")
+text = "Level 3"
+
+[node name="level4Button" type="Button" parent="GridContainer" unique_id=1767000347]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_fonts/font = ExtResource("4_3tsm6")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_fjqyl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_su1x1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vnxlp")
+text = "Level 4"
+
+[node name="backButton" type="Button" parent="." unique_id=89673538]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -155.5
+offset_top = -109.0
+offset_right = 157.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_3tsm6")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_nglqg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fgdk7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4o6jn")
+text = "back to main menu
+"
+
+[connection signal="pressed" from="GridContainer/level1Button" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="GridContainer/level2Button" to="." method="_on_level_2_button_pressed"]
+[connection signal="pressed" from="GridContainer/level3Button" to="." method="_on_level_3_button_pressed"]
+[connection signal="pressed" from="GridContainer/level4Button" to="." method="_on_level_4_button_pressed"]
+[connection signal="pressed" from="backButton" to="." method="_on_back_button_pressed"]

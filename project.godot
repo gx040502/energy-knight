@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="EnergyKnight"
-run/main_scene="uid://qse5uo27w8f2"
+run/main_scene="uid://bdcc0xw23oamx"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
