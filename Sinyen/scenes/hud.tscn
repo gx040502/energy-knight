@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://dqqeja6mh50tr"]
+
+[ext_resource type="Texture2D" uid="uid://coh302noy8oml" path="res://Sinyen/player_hud/health bar.png" id="1_qgf7y"]
+[ext_resource type="Texture2D" uid="uid://bmbi7vyb5d75k" path="res://Sinyen/player_hud/energy bar.png" id="2_o7clo"]
+
+[sub_resource type="Gradient" id="Gradient_oo0fn"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ysmq"]
+gradient = SubResource("Gradient_oo0fn")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_6fi6k"]
+offsets = PackedFloat32Array(0.71243525, 0.98704666, 1)
+colors = PackedColorArray(0.7882353, 0.050980393, 0.12156863, 1, 0.7882353, 0.050980393, 0.12156863, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uo2fv"]
+gradient = SubResource("Gradient_6fi6k")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_5ysmq"]
+offsets = PackedFloat32Array(0.71243525, 0.98704666, 1)
+colors = PackedColorArray(0, 0.0034430814, 0.6881669, 1, 0.7882353, 0.050980393, 0.12156863, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6fi6k"]
+gradient = SubResource("Gradient_5ysmq")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 1)
+
+[node name="Hud" type="CanvasLayer" unique_id=913466994]
+process_mode = 3
+layer = 2
+
+[node name="Control" type="Control" parent="." unique_id=282779232]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HPMarginContainer" type="MarginContainer" parent="Control" unique_id=1428542470]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 89.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/HPMarginContainer" unique_id=551366000]
+layout_mode = 2
+texture = ExtResource("1_qgf7y")
+
+[node name="HPBar" type="TextureProgressBar" parent="Control/HPMarginContainer/NinePatchRect" unique_id=148843247]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 71.0
+offset_top = 21.0
+offset_right = -33.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 20.0
+rounded = true
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_5ysmq")
+texture_progress = SubResource("GradientTexture2D_uo2fv")
+
+[node name="Control2" type="Control" parent="." unique_id=1402319673]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnergyMarginContainer" type="MarginContainer" parent="Control2" unique_id=2107157778]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 97.0
+offset_right = 400.0
+offset_bottom = 166.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control2/EnergyMarginContainer" unique_id=1356970038]
+layout_mode = 2
+texture = ExtResource("2_o7clo")
+
+[node name="EnergyBar" type="TextureProgressBar" parent="Control2/EnergyMarginContainer/NinePatchRect" unique_id=521029506]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 71.0
+offset_top = 21.0
+offset_right = -33.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+rounded = true
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_5ysmq")
+texture_progress = SubResource("GradientTexture2D_6fi6k")

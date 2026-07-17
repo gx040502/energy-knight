@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c7tkcua3yyfid"]
+
+[ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/background.png" id="1_2nr4e"]
+
+[node name="LevelSelection" type="Control" unique_id=2056743195]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1956137253]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2nr4e")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1278652937]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
