@@ -111,6 +111,13 @@ func _spawn_rooms() -> void:
 				
 				# ------------------------------------------
 				
+				# Spawn enemies in non-starting rooms
+				if room_type != "S":
+					var spawner_script = load("res://JunZhi/spawner/enemy_spawner.gd")
+					var spawner_node = Node2D.new()
+					spawner_node.set_script(spawner_script)
+					room_instance.add_child(spawner_node)
+				
 				add_child(room_instance)
 				
 				if room_type == "S":
