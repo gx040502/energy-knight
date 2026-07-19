@@ -152,6 +152,7 @@ func perform_attack() -> void:
 	
 	# Spawn a melee hitbox Area2D dynamically in front of the player
 	var attack_area = Area2D.new()
+	attack_area.collision_mask = 4 # Detect enemies on layer 3
 	var col = CollisionShape2D.new()
 	var shape = CircleShape2D.new()
 	shape.radius = 45.0
@@ -173,17 +174,17 @@ func perform_attack() -> void:
 	rect.position = -Vector2(15, 15)
 	attack_area.add_child(rect)
 	
+	# Detect hits via body_entered
+	attack_area.body_entered.connect(func(body):
+		if body.is_in_group("enemies") and body.has_method("take_damage"):
+			body.take_damage(10.0, attack_dir * 350.0)
+	)
+	
 	add_child(attack_area)
 	
 	# Flash player sprite briefly
 	var original_modulate = player_anim.modulate
 	player_anim.modulate = Color(1.5, 1.5, 1.5, 1) # Bright white highlight
-	
-	# Check for hits
-	var hits = attack_area.get_overlapping_bodies()
-	for body in hits:
-		if body.is_in_group("enemies") and body.has_method("take_damage"):
-			body.take_damage(10.0, attack_dir * 350.0) # Deal 10 damage and knock them back
 			
 	# Remove attack area after 0.12 seconds
 	var timer = get_tree().create_timer(0.12)
@@ -225,12 +226,23 @@ func perform_explosion_spell() -> void:
 		
 		# Spawn an Area2D for the actual explosion hitbox
 		var blast_area = Area2D.new()
+		blast_area.collision_mask = 4 # Detect enemies on layer 3
 		var col = CollisionShape2D.new()
 		var shape = CircleShape2D.new()
 		shape.radius = 60.0
 		col.shape = shape
 		blast_area.add_child(col)
 		blast_area.global_position = explosion_pos
+		
+		# Detect blast hits via body_entered
+		blast_area.body_entered.connect(func(body):
+			if body.is_in_group("enemies") and body.has_method("take_damage"):
+				var blast_dir = (body.global_position - explosion_pos).normalized()
+				if blast_dir == Vector2.ZERO:
+					blast_dir = Vector2.UP
+				body.take_damage(20.0, blast_dir * 600.0)
+		)
+		
 		get_parent().add_child(blast_area)
 		
 		# A transient visual blast circle
@@ -239,15 +251,6 @@ func perform_explosion_spell() -> void:
 		blast_visual.size = Vector2(120, 120)
 		blast_visual.position = explosion_pos - Vector2(60, 60)
 		get_parent().add_child(blast_visual)
-		
-		# Deal damage to enemies in the blast
-		var hits = blast_area.get_overlapping_bodies()
-		for body in hits:
-			if body.is_in_group("enemies") and body.has_method("take_damage"):
-				var blast_dir = (body.global_position - explosion_pos).normalized()
-				if blast_dir == Vector2.ZERO:
-					blast_dir = Vector2.UP
-				body.take_damage(20.0, blast_dir * 600.0) # Deal 20 damage and heavy knockback
 				
 		var cleanup_timer = get_tree().create_timer(0.12)
 		cleanup_timer.timeout.connect(func():
