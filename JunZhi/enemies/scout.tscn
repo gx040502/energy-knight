@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://bgqkscout123a"]
+
+[ext_resource type="Script" uid="uid://dfscoutscript123" path="res://JunZhi/enemies/scout.gd" id="1_scout"]
+[ext_resource type="Texture2D" uid="uid://scoutidle1" path="res://JunZhi/sprites/scout_idle1.png" id="2_idle1"]
+[ext_resource type="Texture2D" uid="uid://scoutidle2" path="res://JunZhi/sprites/scout_idle2.png" id="3_idle2"]
+[ext_resource type="Texture2D" uid="uid://scoutidle3" path="res://JunZhi/sprites/scout_idle3.png" id="4_idle3"]
+[ext_resource type="Texture2D" uid="uid://scoutidle4" path="res://JunZhi/sprites/scout_idle4.png" id="5_idle4"]
+[ext_resource type="Texture2D" uid="uid://scoutwalk1" path="res://JunZhi/sprites/scout_walk1.png" id="6_walk1"]
+[ext_resource type="Texture2D" uid="uid://scoutwalk2" path="res://JunZhi/sprites/scout_walk2.png" id="7_walk2"]
+[ext_resource type="Texture2D" uid="uid://scoutwalk3" path="res://JunZhi/sprites/scout_walk3.png" id="8_walk3"]
+[ext_resource type="Texture2D" uid="uid://scoutwalk4" path="res://JunZhi/sprites/scout_walk4.png" id="9_walk4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_scout"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_idle1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_idle3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_idle4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_walk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_walk2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_walk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_walk4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scout"]
+size = Vector2(24, 28)
+
+[node name="Scout" type="CharacterBody2D" groups=["enemies"]]
+z_index = 8
+collision_layer = 4
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_scout")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_scout")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_scout")
