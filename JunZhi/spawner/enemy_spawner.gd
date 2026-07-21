@@ -18,19 +18,13 @@ func _on_room_entered(room: Node2D) -> void:
 		has_spawned = true
 		
 		# Check if this is the start room
-		# In level_1.gd: level_1 start room is placed at start, and the player is moved there.
-		# If the player is already in this room when level starts, it might spawn.
-		# Let's check if this room is the starting room.
-		# How? In level_1.gd, it does:
-		# if room_type == "S":
-		#     player.global_position = pixel_position + (room_spacing / 2.0)
-		# We can check if the player is very close to the center of the room at spawn, 
+		# In level_1.gd, level_1 start room is placed at start, and the player is moved there.
+		# check if the player is close to the center of the room at spawn, 
 		# or if the level's _start coordinate corresponds to this room.
-		# To make it simple and reliable: if this room is where the player is positioned at the start, 
-		# we don't spawn enemies!
+		# if this room is where the player is positioned at the start, don't spawn enemies
 		var dist_to_player = (player_pos() - room_node.global_position - Vector2(576, 324)).length()
 		if dist_to_player < 150.0:
-			# Player started here! No enemies.
+			# Player started here, no enemies.
 			queue_free()
 			return
 			
@@ -43,10 +37,9 @@ func player_pos() -> Vector2:
 	return Vector2.ZERO
 
 func spawn_wave() -> void:
-	# 1. Lock the doors!
 	lock_doors()
 	
-	# 2. Spawn 1-3 random enemies
+	# Spawn 1-3 random enemies
 	var count = randi_range(1, 3)
 	for i in range(count):
 		# 70% Scout, 30% Knockback Scout
@@ -64,16 +57,16 @@ func spawn_wave() -> void:
 func lock_doors() -> void:
 	# Check active doors in room
 	var doors = {
-		"DoorUp": Vector2(578, 87),
-		"DoorDown": Vector2(584, 564),
-		"DoorLeft": Vector2(93, 326),
-		"DoorRight": Vector2(1064, 325)
+		"DoorUp": Vector2(576, 87),
+		"DoorDown": Vector2(576, 564),
+		"DoorLeft": Vector2(93, 324),
+		"DoorRight": Vector2(1064, 324)
 	}
 	var door_sizes = {
-		"DoorUp": Vector2(141.5, 40),
-		"DoorDown": Vector2(141, 40),
-		"DoorLeft": Vector2(40, 140),
-		"DoorRight": Vector2(40, 139.5)
+		"DoorUp": Vector2(142, 120),
+		"DoorDown": Vector2(142, 120),
+		"DoorLeft": Vector2(120, 140),
+		"DoorRight": Vector2(120, 140)
 	}
 	
 	for door_name in doors.keys():
@@ -83,6 +76,7 @@ func lock_doors() -> void:
 			var barrier = create_barrier(doors[door_name], door_sizes[door_name])
 			room_node.add_child(barrier)
 			barriers.append(barrier)
+			print("Barrier created for ", door_name)
 
 func create_barrier(pos: Vector2, size: Vector2) -> StaticBody2D:
 	var barrier = StaticBody2D.new()
