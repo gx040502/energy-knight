@@ -13,19 +13,19 @@ size = Vector2(863, 352)
 size = Vector2(104.5, 139.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3b0p"]
-size = Vector2(141, 107.25)
+size = Vector2(141, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ld7f6"]
-size = Vector2(105, 140)
+size = Vector2(83.5, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ho6jx"]
-size = Vector2(141.5, 104.5)
+size = Vector2(147.75, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0lrer"]
 size = Vector2(155, 142)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lobr4"]
-size = Vector2(150, 142)
+size = Vector2(150, 137)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_re6cg"]
 size = Vector2(152.5, 170)
@@ -67,7 +67,7 @@ position = Vector2(584, 564)
 position = Vector2(0, 281)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDown" unique_id=1851726102]
-position = Vector2(-7, -8)
+position = Vector2(-7, 27)
 shape = SubResource("RectangleShape2D_n3b0p")
 
 [node name="DoorLeft" parent="." unique_id=804192740 instance=ExtResource("2_ej8nx")]
@@ -77,7 +77,7 @@ position = Vector2(93, 326)
 position = Vector2(-281, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLeft" unique_id=922344535]
-position = Vector2(0, -4)
+position = Vector2(-10.75, -14)
 shape = SubResource("RectangleShape2D_ld7f6")
 
 [node name="DoorUp" parent="." unique_id=812061546 instance=ExtResource("2_ej8nx")]
@@ -87,7 +87,7 @@ position = Vector2(578, 87)
 position = Vector2(0, -281)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorUp" unique_id=621545084]
-position = Vector2(-1, 5)
+position = Vector2(2.125, -26.5)
 shape = SubResource("RectangleShape2D_ho6jx")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1546029269]
@@ -154,7 +154,7 @@ scale = Vector2(37.24999, 35.24999)
 texture = ExtResource("4_n3b0p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallDown" unique_id=296171065]
-position = Vector2(579, 574)
+position = Vector2(579, 576.5)
 shape = SubResource("RectangleShape2D_lobr4")
 
 [node name="WallLeft" type="StaticBody2D" parent="." unique_id=1579437023]
