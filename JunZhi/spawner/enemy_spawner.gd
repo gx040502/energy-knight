@@ -16,18 +16,6 @@ func _ready() -> void:
 func _on_room_entered(room: Node2D) -> void:
 	if room == room_node and not has_spawned:
 		has_spawned = true
-		
-		# Check if this is the start room
-		# In level_1.gd, level_1 start room is placed at start, and the player is moved there.
-		# check if the player is close to the center of the room at spawn, 
-		# or if the level's _start coordinate corresponds to this room.
-		# if this room is where the player is positioned at the start, don't spawn enemies
-		var dist_to_player = (player_pos() - room_node.global_position - Vector2(576, 324)).length()
-		if dist_to_player < 150.0:
-			# Player started here, no enemies.
-			queue_free()
-			return
-			
 		spawn_wave()
 
 func player_pos() -> Vector2:

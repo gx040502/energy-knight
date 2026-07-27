@@ -51,12 +51,10 @@ func trigger_knockback_attack() -> void:
 	var telegraph_tween = create_tween()
 	telegraph_tween.tween_property(self, "telegraph_ratio", 1.0, 0.5)
 	
-	# --- ADD THIS LOOP ---
 	# Force the warning circle to redraw every frame while the tween is playing
 	while telegraph_tween.is_running():
 		queue_redraw()
 		await get_tree().process_frame
-	# ---------------------
 	
 	# Execute the Knockback Attack
 	if player and not is_dead:
