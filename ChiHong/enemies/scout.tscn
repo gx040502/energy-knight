@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://c2nhourf5w524"]
+
+[ext_resource type="Script" uid="uid://b3nk00mvixiht" path="res://ChiHong/enemies/scout.gd" id="1_s26gk"]
+[ext_resource type="Texture2D" uid="uid://mh0508gr10kd" path="res://ChiHong/enemies/spritesheet.png" id="2_ux6mp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mven6"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4cqy"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vets1"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ed5l3"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf8ai"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pj2my"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuh3k"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8spof"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbrtq"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82af8"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js8mv"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3688f"]
+atlas = ExtResource("2_ux6mp")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_828fb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mven6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4cqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vets1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ed5l3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf8ai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pj2my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kuh3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8spof")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbrtq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82af8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js8mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3688f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s26gk"]
+radius = 31.0
+height = 82.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mven6"]
+radius = 19.805109
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ux6mp"]
+radius = 72.00694
+
+[node name="Scout" type="CharacterBody2D" unique_id=1851054582 groups=["enemies"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_s26gk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=424202085]
+sprite_frames = SubResource("SpriteFrames_828fb")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=53360396]
+shape = SubResource("CapsuleShape2D_s26gk")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1259002918]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=661071027]
+scale = Vector2(30, 30)
+shape = SubResource("CircleShape2D_mven6")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1330055063]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1959254843 groups=["enemies"]]
+shape = SubResource("CircleShape2D_ux6mp")
+
+[node name="Telegraph" type="Timer" parent="." unique_id=2003316031]
+wait_time = 0.5
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="." unique_id=860789205]
+one_shot = true

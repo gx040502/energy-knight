@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxh4b5t6wb1hp"
-path="res://.godot/imported/kb_scout_walk1.png-9c9e4a8232bfd4b6cbd167678d5ca733.ctex"
+uid="uid://mh0508gr10kd"
+path="res://.godot/imported/spritesheet.png-123f3c64433594a5ffba4e990a57df94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JunZhi/sprites/kb_scout_walk1.png"
-dest_files=["res://.godot/imported/kb_scout_walk1.png-9c9e4a8232bfd4b6cbd167678d5ca733.ctex"]
+source_file="res://ChiHong/enemies/spritesheet.png"
+dest_files=["res://.godot/imported/spritesheet.png-123f3c64433594a5ffba4e990a57df94.ctex"]
 
 [params]
 

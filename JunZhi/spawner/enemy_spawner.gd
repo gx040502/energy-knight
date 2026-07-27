@@ -1,7 +1,7 @@
 extends Node2D
 class_name EnemySpawner
 
-var scout_scene = preload("res://JunZhi/enemies/scout.tscn")
+var scout_scene = preload("res://ChiHong/enemies/scout.tscn")
 var kb_scout_scene = preload("res://JunZhi/enemies/knockback_scout.tscn")
 
 var spawned_enemies: Array = []
@@ -51,7 +51,7 @@ func spawn_wave() -> void:
 		var spawn_y = randf_range(200, 450)
 		enemy_instance.position = Vector2(spawn_x, spawn_y)
 		
-		room_node.add_child(enemy_instance)
+		room_node.call_deferred("add_child", enemy_instance)
 		spawned_enemies.append(enemy_instance)
 
 func lock_doors() -> void:
@@ -74,7 +74,7 @@ func lock_doors() -> void:
 		if is_instance_valid(door_node):
 			# Spawn a barrier at the door position
 			var barrier = create_barrier(doors[door_name], door_sizes[door_name])
-			room_node.add_child(barrier)
+			room_node.call_deferred("add_child", barrier)
 			barriers.append(barrier)
 			print("Barrier created for ", door_name)
 
