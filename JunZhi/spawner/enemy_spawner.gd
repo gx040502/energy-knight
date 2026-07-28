@@ -43,24 +43,13 @@ func spawn_wave() -> void:
 		spawned_enemies.append(enemy_instance)
 
 func lock_doors() -> void:
-	var screen_size = get_viewport_rect().size
-	var center_x = screen_size.x / 2.0
-	var center_y = screen_size.y / 2.0
-	
+	# Check active doors in room
 	var doors = {
-		"DoorUp": Vector2(center_x, 87),
-		"DoorDown": Vector2(center_x, screen_size.y - 84),
-		"DoorLeft": Vector2(93, center_y),
-		"DoorRight": Vector2(screen_size.x - 88, center_y)
+		"DoorUp": Vector2(576, 87),
+		"DoorDown": Vector2(576, 564),
+		"DoorLeft": Vector2(93, 324),
+		"DoorRight": Vector2(1064, 324)
 	}
-	
-	## Check active doors in room
-	#var doors = {
-		#"DoorUp": Vector2(576, 87),
-		#"DoorDown": Vector2(576, 564),
-		#"DoorLeft": Vector2(93, 324),
-		#"DoorRight": Vector2(1064, 324)
-	#}
 	var door_sizes = {
 		"DoorUp": Vector2(142, 120),
 		"DoorDown": Vector2(142, 120),
