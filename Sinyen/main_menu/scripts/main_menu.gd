@@ -17,7 +17,7 @@ func _on_start_pressed():
 
 
 func _on_settings_pressed():
-	print("Setting pressed")
+	get_tree().change_scene_to_file("res://Sinyen/options/scenes/options.tscn")
 
 
 func _on_exit_pressed():

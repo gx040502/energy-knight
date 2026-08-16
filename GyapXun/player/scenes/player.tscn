@@ -139,24 +139,31 @@ wait_time = 0.12
 [node name="Hud" parent="." unique_id=913466994 instance=ExtResource("22_g31jf")]
 
 [node name="FootstepsSFX" type="AudioStreamPlayer" parent="." unique_id=1727867988]
+bus = &"SFX"
 
 [node name="DashSFX" type="AudioStreamPlayer" parent="." unique_id=247560584]
 stream = ExtResource("23_la1jf")
+bus = &"SFX"
 
 [node name="MeleeAttackSFX" type="AudioStreamPlayer" parent="." unique_id=755408325]
 stream = ExtResource("24_enmwg")
+bus = &"SFX"
 
 [node name="SpellCastSFX" type="AudioStreamPlayer" parent="." unique_id=918607991]
 stream = ExtResource("25_enmwg")
+bus = &"SFX"
 
 [node name="ExplosionBlastSFX" type="AudioStreamPlayer" parent="." unique_id=1998408266]
 stream = ExtResource("25_t5vx1")
+bus = &"SFX"
 
 [node name="TakeDamageSFX" type="AudioStreamPlayer" parent="." unique_id=2001154314]
 stream = ExtResource("27_t5vx1")
+bus = &"SFX"
 
 [node name="StaminaDebuffSFX" type="AudioStreamPlayer" parent="." unique_id=325874108]
 stream = ExtResource("28_t5vx1")
+bus = &"SFX"
 
 [node name="FootstepTimer" type="Timer" parent="." unique_id=304232900]
 wait_time = 0.45
