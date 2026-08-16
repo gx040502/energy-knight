@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bcrossbolt1tscn"]
+
+[ext_resource type="Script" uid="uid://bcrossbolt1ab2c" path="res://JunZhi/hazards/crossbow_bolt.gd" id="1_bolt"]
+
+; Thin rectangle matches a horizontal bolt; rotation is applied in _ready()
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bolt"]
+size = Vector2(22, 6)
+
+; Slightly larger circle for player hit detection
+[sub_resource type="CircleShape2D" id="CircleShape2D_bolt_hit"]
+radius = 9.0
+
+; --- Scene tree ---
+[node name="CrossbowBolt" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_bolt")
+
+; Small golden rectangle – the bolt visual
+[node name="BoltVisual" type="ColorRect" parent="."]
+color = Color(0.9, 0.75, 0.15, 1.0)
+size = Vector2(22, 6)
+position = Vector2(-11, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bolt")
+
+; Hit area detects the player (layer 1)
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("CircleShape2D_bolt_hit")

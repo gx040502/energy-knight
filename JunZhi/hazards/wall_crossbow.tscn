@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bwallcbowtscn1d"]
+
+[ext_resource type="Script" uid="uid://bwallcbow1gd12e" path="res://JunZhi/hazards/wall_crossbow.gd" id="1_crossbow"]
+
+; --- Scene tree ---
+[node name="WallCrossbow" type="Node2D"]
+script = ExtResource("1_crossbow")
+
+; Fire timer – wait_time and autostart controlled by the script
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+; Placeholder visual: a dark brown rectangle representing the crossbow mount
+[node name="CrossbowBody" type="ColorRect" parent="."]
+color = Color(0.35, 0.2, 0.08, 1.0)
+size = Vector2(28, 14)
+position = Vector2(-14, -7)
+
+; Barrel tip indicator
+[node name="Barrel" type="ColorRect" parent="."]
+color = Color(0.2, 0.12, 0.04, 1.0)
+size = Vector2(16, 6)
+position = Vector2(14, -3)
