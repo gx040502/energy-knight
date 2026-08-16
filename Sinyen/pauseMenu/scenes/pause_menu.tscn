@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cykqbw2mjcjn3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yij4"]
+bg_color = Color(0.1721153, 0.17211533, 0.1721152, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m34xr"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="PauseMenu" type="Control" unique_id=1605097622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 11.0
+offset_right = 3.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=130663209]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=950902274]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.5
+offset_top = -209.25
+offset_right = 272.5
+offset_bottom = 209.25
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8640537, 1.0217077)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1098611823]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=510324865]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="resumeButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=932320830]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_6yij4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m34xr")
+text = "Resume"
+
+[node name="restartButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1127774600]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Restart Level"
+
+[node name="settingsButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1010528921]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="quitButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1556754127]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=26679315]
