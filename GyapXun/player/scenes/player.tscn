@@ -121,7 +121,7 @@ script = ExtResource("1_nmnwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=370924242]
 sprite_frames = SubResource("SpriteFrames_chlmu")
-animation = &"dash"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=944439433]
 position = Vector2(5, -1)
