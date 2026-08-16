@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqqeja6mh50tr"]
 
-[ext_resource type="Texture2D" uid="uid://coh302noy8oml" path="res://Sinyen/images/health bar.png" id="1_qgf7y"]
-[ext_resource type="Texture2D" uid="uid://bmbi7vyb5d75k" path="res://Sinyen/images/energy bar.png" id="2_o7clo"]
+[ext_resource type="Texture2D" uid="uid://coh302noy8oml" path="res://Sinyen/images/health bar.png" id="1_gtf3u"]
+[ext_resource type="Texture2D" uid="uid://bmbi7vyb5d75k" path="res://Sinyen/images/energy bar.png" id="2_eu0py"]
 
 [sub_resource type="Gradient" id="Gradient_oo0fn"]
 
@@ -47,7 +47,7 @@ offset_bottom = 89.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control/HPMarginContainer" unique_id=551366000]
 layout_mode = 2
-texture = ExtResource("1_qgf7y")
+texture = ExtResource("1_gtf3u")
 
 [node name="HPBar" type="TextureProgressBar" parent="Control/HPMarginContainer/NinePatchRect" unique_id=148843247]
 unique_name_in_owner = true
@@ -84,7 +84,7 @@ offset_bottom = 166.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control2/EnergyMarginContainer" unique_id=1356970038]
 layout_mode = 2
-texture = ExtResource("2_o7clo")
+texture = ExtResource("2_eu0py")
 
 [node name="EnergyBar" type="TextureProgressBar" parent="Control2/EnergyMarginContainer/NinePatchRect" unique_id=521029506]
 unique_name_in_owner = true

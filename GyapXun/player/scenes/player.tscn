@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://c0mm7mw78podt" path="res://GyapXun/animations/walk/walk2.png" id="15_qja0k"]
 [ext_resource type="Texture2D" uid="uid://ekbas0j25cue" path="res://GyapXun/animations/walk/walk3.png" id="16_5p363"]
 [ext_resource type="Texture2D" uid="uid://b60cive1napwr" path="res://GyapXun/animations/walk/walk4.png" id="17_bfa6d"]
-[ext_resource type="PackedScene" uid="uid://dqqeja6mh50tr" path="res://Sinyen/scenes/hud.tscn" id="22_g31jf"]
+[ext_resource type="PackedScene" uid="uid://dqqeja6mh50tr" path="res://Sinyen/player_hud/scenes/hud.tscn" id="22_g31jf"]
 [ext_resource type="AudioStream" uid="uid://btl1byq7yhfpf" path="res://GyapXun/sfx/dash/dragon-studio-whoosh-cinematic-5-376880.mp3" id="23_la1jf"]
 [ext_resource type="AudioStream" uid="uid://bfvoubpqdbieh" path="res://GyapXun/sfx/melee/swing3.wav" id="24_enmwg"]
 [ext_resource type="AudioStream" uid="uid://88gixifcj8sd" path="res://GyapXun/sfx/explosion/spell.wav" id="25_enmwg"]

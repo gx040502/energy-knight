@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c7tkcua3yyfid"]
 
-[ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/background.png" id="1_2nr4e"]
-[ext_resource type="Script" uid="uid://c2hgii5i016mw" path="res://Sinyen/scenes/level_selection.gd" id="1_lmy5v"]
-[ext_resource type="FontFile" uid="uid://dby7gfrwp6wjr" path="res://Sinyen/PixelOperator-Bold.ttf" id="3_1s5lq"]
-[ext_resource type="FontFile" uid="uid://c7ls8p3n0t5uc" path="res://Sinyen/PixelOperator.ttf" id="4_3tsm6"]
+[ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/images/background.png" id="1_2nr4e"]
+[ext_resource type="Script" uid="uid://c2hgii5i016mw" path="res://Sinyen/levelSelection/scripts/level_selection.gd" id="1_lmy5v"]
+[ext_resource type="FontFile" uid="uid://dby7gfrwp6wjr" path="res://Sinyen/TTF/PixelOperator-Bold.ttf" id="3_1s5lq"]
+[ext_resource type="FontFile" uid="uid://c7ls8p3n0t5uc" path="res://Sinyen/TTF/PixelOperator.ttf" id="4_3tsm6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s5lq"]
 bg_color = Color(0, 0, 0, 0.7058824)

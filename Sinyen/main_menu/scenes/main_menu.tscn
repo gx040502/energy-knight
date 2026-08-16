@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bdcc0xw23oamx"]
 
-[ext_resource type="Script" uid="uid://bbqvbkh1q8p0h" path="res://Sinyen/main_menu.gd" id="1_5of40"]
-[ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/background.png" id="2_mtou3"]
-[ext_resource type="FontFile" uid="uid://dby7gfrwp6wjr" path="res://Sinyen/PixelOperator-Bold.ttf" id="3_mtou3"]
-[ext_resource type="FontFile" uid="uid://w07eanlcrth6" path="res://Sinyen/GrapeSoda.ttf" id="3_s5oij"]
+[ext_resource type="Script" uid="uid://bbqvbkh1q8p0h" path="res://Sinyen/main_menu/scripts/main_menu.gd" id="1_5of40"]
+[ext_resource type="Texture2D" uid="uid://bccceupoo6k5q" path="res://Sinyen/images/background.png" id="2_mtou3"]
+[ext_resource type="FontFile" uid="uid://dby7gfrwp6wjr" path="res://Sinyen/TTF/PixelOperator-Bold.ttf" id="3_mtou3"]
+[ext_resource type="FontFile" uid="uid://w07eanlcrth6" path="res://Sinyen/TTF/GrapeSoda.ttf" id="3_s5oij"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jix8l"]
 texture = ExtResource("2_mtou3")

@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 @onready var player_anim = $AnimatedSprite2D
 @onready var dash_timer = $Timer 
-@onready var energy_bar: TextureProgressBar = $Hud/%EnergyBar #milestone2
-@onready var health_bar = $Hud/%HPBar
+
+@onready var health_bar: TextureProgressBar = $Hud/Control/HPMarginContainer/NinePatchRect/HPBar
+@onready var energy_bar: TextureProgressBar = $Hud/Control2/EnergyMarginContainer/NinePatchRect/EnergyBar
 
 @onready var footsteps_sfx: AudioStreamPlayer = $FootstepsSFX
 @onready var footstep_timer: Timer = $FootstepTimer
