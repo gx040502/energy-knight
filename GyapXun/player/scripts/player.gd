@@ -2,8 +2,31 @@ extends CharacterBody2D
 
 @onready var player_anim = $AnimatedSprite2D
 @onready var dash_timer = $Timer 
-@onready var energy_bar = $Hud/%EnergyBar
+@onready var energy_bar: TextureProgressBar = $Hud/%EnergyBar #milestone2
 @onready var health_bar = $Hud/%HPBar
+
+@onready var footsteps_sfx: AudioStreamPlayer = $FootstepsSFX
+@onready var footstep_timer: Timer = $FootstepTimer
+@onready var dash_sfx: AudioStreamPlayer = $DashSFX
+@onready var melee_attack_sfx: AudioStreamPlayer = $MeleeAttackSFX
+@onready var explosion_blast_sfx: AudioStreamPlayer = $ExplosionBlastSFX
+@onready var take_damage_sfx: AudioStreamPlayer = $TakeDamageSFX
+@onready var stamina_debuff_sfx: AudioStreamPlayer = $StaminaDebuffSFX
+@onready var spell_cast_sfx: AudioStreamPlayer = $SpellCastSFX
+
+# --- FOOTSTEP AUDIO ---
+const STEP_L: AudioStream = preload("res://GyapXun/sfx/walk/sfx_step_rock_l.wav")
+const STEP_R: AudioStream = preload("res://GyapXun/sfx/walk/sfx_step_rock_l.wav")
+
+const STEP_INTERVAL_WALK: float = 0.45
+const STEP_INTERVAL_SPRINT: float = 0.28
+const STEP_INTERVAL_DEBUFF: float = 0.60
+const STEP_PITCH_SPRINT: float = 1.10
+const STEP_PITCH_VARIANCE: float = 0.05
+const STEP_VOLUME_SPRINT_DB: float = 2.5
+
+var _step_use_left: bool = true
+var _step_is_sprinting: bool = false
 
 # Movement Speeds
 const WALK_SPEED = 300.0
@@ -17,6 +40,19 @@ var dash_direction = Vector2.ZERO
 # --- NEW STAMINA SYSTEM ---
 var max_stamina = 100.0
 var current_stamina = 100.0
+
+# --- STAMINA DEBUFF --- milestone2
+const EXHAUSTION_THRESHOLD: float = 0.0
+const RECOVERY_THRESHOLD: float = 55.0
+const DEBUFF_SPEED_MULT: float = 0.55
+
+var is_stamina_debuffed: bool = false
+
+# --- ENERGY BAR WARNING ---
+const WARNING_TINT: Color = Color(1.0, 0.3, 0.3, 1.0)
+const WARNING_BLINK_TIME: float = 0.35
+
+var _energy_warning_tween: Tween = null
 
 var dash_cost = 25.0       # Costs 25 stamina instantly
 var sprint_cost = 30.0     # Drains 30 stamina per second
@@ -40,6 +76,8 @@ func _ready():
 	player_anim.play("idle")
 	energy_bar.value = current_stamina
 	health_bar.value = current_health
+	energy_bar.tint_progress = Color.WHITE
+	footstep_timer.timeout.connect(_on_footstep_timer_timeout)
 	
 func _physics_process(delta: float) -> void:
 	# 1. Get movement input
@@ -54,6 +92,7 @@ func _physics_process(delta: float) -> void:
 		current_stamina -= dash_cost # Take away the stamina instantly
 		dash_timer.start()
 		player_anim.play("dash")
+		dash_sfx.play()
 		
 		if direction != Vector2.ZERO:
 			dash_direction = direction
@@ -66,12 +105,13 @@ func _physics_process(delta: float) -> void:
 	# 3. Apply Velocity and handle Sprint/Regen
 	if is_dashing:
 		velocity = dash_direction * DASH_SPEED + knockback_velocity
+		_update_footsteps(false, false)
 	else:
 		var current_speed = WALK_SPEED
 		var is_sprinting = false
 		
 		# Check if sprinting AND we have stamina left
-		if Input.is_action_pressed("sprint") and direction.length() > 0 and current_stamina > 0:
+		if Input.is_action_pressed("sprint") and direction.length() > 0 and current_stamina > 0 and not is_stamina_debuffed: #milestone2
 			current_speed = SPRINT_SPEED
 			is_sprinting = true
 			# Drain stamina continuously based on time (delta)
@@ -89,7 +129,10 @@ func _physics_process(delta: float) -> void:
 		# Clamp stamina so it never goes below 0 or above max_stamina
 		current_stamina = clamp(current_stamina, 0, max_stamina)
 		energy_bar.value = current_stamina
-
+		
+		if is_stamina_debuffed: #milestone2
+			current_speed *= DEBUFF_SPEED_MULT
+			
 		velocity = direction * current_speed + knockback_velocity
 		
 		# Handle Walk/Sprint/Idle animations
@@ -98,7 +141,7 @@ func _physics_process(delta: float) -> void:
 				player_anim.play("sprint")
 			else:
 				player_anim.play("walk")
-			
+		
 			if direction.x < 0:
 				player_anim.flip_h = true
 			elif direction.x > 0:
@@ -106,11 +149,18 @@ func _physics_process(delta: float) -> void:
 		else:
 			player_anim.play("idle") 
 		
+		# Footsteps follow player INPUT, not velocity — so knockback,
+		# slides and external forces don't trigger step sounds.
+		_update_footsteps(direction.length() > 0, is_sprinting)
+		
 		if current_health < max_health and current_health > 0:
 			current_health += health_regen * delta
 			current_health = clamp(current_health, 0, max_health)
 			health_bar.value = current_health
-
+	
+	# 4. Update debuff state
+	_update_stamina_state() #milestone2
+	
 	# 4. Move the character
 	move_and_slide()
 
@@ -121,6 +171,9 @@ func _on_timer_timeout() -> void:
 func take_damage(amount: float, knockback: Vector2) -> void:
 	if current_health <= 0:
 		return
+	
+	if amount > 0.0:
+		take_damage_sfx.play()
 	
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
@@ -147,6 +200,7 @@ func take_damage(amount: float, knockback: Vector2) -> void:
 
 func perform_attack() -> void:
 	can_attack = false
+	melee_attack_sfx.play()
 	current_stamina -= attack_cost
 	energy_bar.value = current_stamina
 	
@@ -201,6 +255,7 @@ func perform_attack() -> void:
 
 func perform_explosion_spell() -> void:
 	can_attack = false
+	spell_cast_sfx.play()
 	current_stamina -= 30.0 # Drains 30 stamina
 	energy_bar.value = current_stamina
 	
@@ -223,6 +278,8 @@ func perform_explosion_spell() -> void:
 	timer.timeout.connect(func():
 		indicator.queue_free()
 		player_anim.modulate = original_modulate
+		if is_instance_valid(explosion_blast_sfx):
+			explosion_blast_sfx.play()
 		
 		# Spawn an Area2D for the actual explosion hitbox
 		var blast_area = Area2D.new()
@@ -264,3 +321,80 @@ func perform_explosion_spell() -> void:
 	cooldown_timer.timeout.connect(func():
 		can_attack = true
 	)
+
+#milestone2
+func _update_stamina_state() -> void:
+	if not is_stamina_debuffed and current_stamina <= EXHAUSTION_THRESHOLD:
+		set_stamina_debuff(true)
+	elif is_stamina_debuffed and current_stamina > RECOVERY_THRESHOLD:
+		set_stamina_debuff(false)
+
+
+func set_stamina_debuff(active: bool) -> void:
+	if active == is_stamina_debuffed:
+		return
+	is_stamina_debuffed = active
+	if active:
+		stamina_debuff_sfx.play()
+		_start_energy_warning()
+	else:
+		stamina_debuff_sfx.stop()
+		_stop_energy_warning()
+
+
+func _start_energy_warning() -> void:
+	if not is_instance_valid(energy_bar):
+		return
+	if _energy_warning_tween != null and _energy_warning_tween.is_valid():
+		_energy_warning_tween.kill()
+
+	# Bound to energy_bar, not self, so it inherits the Hud's ALWAYS process mode.
+	_energy_warning_tween = energy_bar.create_tween()
+	_energy_warning_tween.set_loops()
+	_energy_warning_tween.set_trans(Tween.TRANS_SINE)
+	_energy_warning_tween.set_ease(Tween.EASE_IN_OUT)
+	_energy_warning_tween.tween_property(energy_bar, "tint_progress", WARNING_TINT, WARNING_BLINK_TIME)
+	_energy_warning_tween.tween_property(energy_bar, "tint_progress", Color.WHITE, WARNING_BLINK_TIME)
+
+
+func _stop_energy_warning() -> void:
+	if _energy_warning_tween != null and _energy_warning_tween.is_valid():
+		_energy_warning_tween.kill()
+	_energy_warning_tween = null
+	if is_instance_valid(energy_bar):
+		energy_bar.tint_progress = Color.WHITE
+		
+func _update_footsteps(is_moving: bool, is_sprinting: bool) -> void:
+	if not is_moving:
+		footstep_timer.stop()
+		return
+
+	_step_is_sprinting = is_sprinting
+
+	var interval: float = STEP_INTERVAL_WALK
+	if is_stamina_debuffed:
+		interval = STEP_INTERVAL_DEBUFF
+	elif is_sprinting:
+		interval = STEP_INTERVAL_SPRINT
+
+	if footstep_timer.is_stopped():
+		# First step fires immediately, so movement and sound start together.
+		footstep_timer.wait_time = interval
+		_play_footstep()
+		footstep_timer.start()
+	else:
+		# Timer already running: changing wait_time applies on the next cycle,
+		# so speed changes don't clip the step currently in progress.
+		footstep_timer.wait_time = interval
+
+func _on_footstep_timer_timeout() -> void:
+	_play_footstep()
+
+func _play_footstep() -> void:
+	footsteps_sfx.stream = STEP_L if _step_use_left else STEP_R
+	_step_use_left = not _step_use_left
+
+	var base_pitch: float = STEP_PITCH_SPRINT if _step_is_sprinting else 1.0
+	footsteps_sfx.pitch_scale = base_pitch + randf_range(-STEP_PITCH_VARIANCE, STEP_PITCH_VARIANCE)
+	footsteps_sfx.volume_db = STEP_VOLUME_SPRINT_DB if _step_is_sprinting else 0.0
+	footsteps_sfx.play()
