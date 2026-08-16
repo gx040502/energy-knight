@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bykrmqw17t51e" path="res://GyapXun/room/scenes/dungeon_room.tscn" id="2_gkgut"]
 [ext_resource type="PackedScene" uid="uid://dskaeqmjmwpj8" path="res://GyapXun/room/scenes/haaland_room.tscn" id="3_icauj"]
 [ext_resource type="Script" uid="uid://k7rfvfeqvsmi" path="res://GyapXun/levels/scripts/camera_2d.gd" id="4_iq3gp"]
+[ext_resource type="PackedScene" uid="uid://cykqbw2mjcjn3" path="res://Sinyen/pauseMenu/scenes/pause_menu.tscn" id="6_icauj"]
 
 [node name="Level1" type="Node2D" unique_id=847418784]
 script = ExtResource("1_mwkg1")
@@ -22,3 +23,5 @@ anchor_mode = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("4_iq3gp")
+
+[node name="PauseMenu" parent="." unique_id=1007587394 instance=ExtResource("6_icauj")]
