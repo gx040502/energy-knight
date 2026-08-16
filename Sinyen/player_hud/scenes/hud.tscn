@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqqeja6mh50tr"]
 
-[ext_resource type="Texture2D" uid="uid://coh302noy8oml" path="res://Sinyen/player_hud/health bar.png" id="1_qgf7y"]
-[ext_resource type="Texture2D" uid="uid://bmbi7vyb5d75k" path="res://Sinyen/player_hud/energy bar.png" id="2_o7clo"]
+[ext_resource type="Texture2D" uid="uid://coh302noy8oml" path="res://Sinyen/images/health bar.png" id="1_qgf7y"]
+[ext_resource type="Texture2D" uid="uid://bmbi7vyb5d75k" path="res://Sinyen/images/energy bar.png" id="2_o7clo"]
 
 [sub_resource type="Gradient" id="Gradient_oo0fn"]
 
