@@ -7,7 +7,8 @@ class_name MonarchBoss
 # At half HP (spawn_hp_threshold), it spawns two Scout minions once.
 # The _draw() method draws the shield glow and the attack telegraph ring.
 
-const SPEED: float = 60.0
+const SPEED: float = 110.0
+const SHIELD_SPEED: float = 70.0
 
 @export var attack_range: float = 100.0
 @export var shield_duration: float = 5.0
@@ -44,10 +45,20 @@ func _physics_process(delta: float) -> void:
 
 		State.SHIELDED:
 			shield_up = true
-			velocity = Vector2.ZERO
-			sprite.play("idle")
 			phase_timer -= delta
 			queue_redraw()
+			# Re-fetch player if null
+			if player == null:
+				player = get_tree().get_first_node_in_group("player")
+			# Chase player while shielded (cannot attack)
+			if player != null:
+				var dir := global_position.direction_to(player.global_position)
+				velocity = dir * SHIELD_SPEED
+				sprite.play("walk")
+				sprite.flip_h = dir.x < 0
+			else:
+				velocity = Vector2.ZERO
+				sprite.play("idle")
 			if phase_timer <= 0.0:
 				# Drop the shield
 				current_state = State.VULNERABLE
@@ -58,6 +69,9 @@ func _physics_process(delta: float) -> void:
 			shield_up = false
 			queue_redraw()
 			phase_timer -= delta
+			# Re-fetch player if reference was lost at spawn time
+			if player == null:
+				player = get_tree().get_first_node_in_group("player")
 			if player != null:
 				var dist := global_position.distance_to(player.global_position)
 				if dist > attack_range:
@@ -155,8 +169,11 @@ func _spawn_minions() -> void:
 	for _i in range(2):
 		var scout: Node2D = scout_scene.instantiate()
 		var offset := Vector2(randf_range(-130.0, 130.0), randf_range(-90.0, 90.0))
-		scout.global_position = global_position + offset
+		# Add to same parent as the boss (the room node) so global_position is valid
+		var spawn_pos := global_position + offset
 		get_parent().call_deferred("add_child", scout)
+		scout.set_deferred("global_position", spawn_pos)
+		print("[Monarch] Spawning minion at ", spawn_pos)
 
 
 func die() -> void:
