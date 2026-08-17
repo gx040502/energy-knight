@@ -1,7 +1,7 @@
 extends Node2D
 class_name EnemySpawnerLevel4
 
-# --- LEVEL 4 ENEMY SPAWNER (Placeholder / Template) ---
+# LEVEL 4 ENEMY SPAWNER
 # Designed for Level 4 with higher difficulty and boss / elite enemy support.
 
 var scout_scene = preload("res://ChiHong/enemies/scout.tscn")
@@ -26,13 +26,7 @@ func _ready() -> void:
 func _on_room_entered(room: Node2D) -> void:
 	if room == room_node and not has_spawned:
 		has_spawned = true
-		
-		# Check if player started in this room
-		var dist_to_player = (player_pos() - room_node.global_position - Vector2(576, 324)).length()
-		if dist_to_player < 150.0:
-			queue_free()
-			return
-			
+		print("[EnemySpawnerLevel4] Player entered room: ", room_node.name, " | is_boss_room: ", is_boss_room)
 		spawn_wave()
 
 func player_pos() -> Vector2:
