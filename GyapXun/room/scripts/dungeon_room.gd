@@ -1,6 +1,8 @@
 extends Node2D
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
+	if not body.is_in_group("player"):
+		return
 	Events.room_entered.emit(self)
 	
 func setup_doors(has_up: bool, has_down: bool, has_left: bool, has_right: bool) -> void:

@@ -19,6 +19,8 @@ func _ready() -> void:
 	_generate_branches()
 	_print_dungeon()
 	_spawn_rooms()
+	
+	MusicManager.play_track(MusicManager.LEVEL_TRACK)
 
 func _initialize_dungeon() -> void:
 	for x in _dimensions.x:

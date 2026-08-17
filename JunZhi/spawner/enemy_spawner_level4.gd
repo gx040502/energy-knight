@@ -77,6 +77,7 @@ func _spawn_boss_encounter() -> void:
 	boss_instance.position = Vector2(576, 324)
 	room_node.call_deferred("add_child", boss_instance)
 	spawned_enemies.append(boss_instance)
+	MusicManager.push_track(MusicManager.BOSS_TRACK)
 
 func lock_doors() -> void:
 	# Check active doors in room
@@ -136,6 +137,8 @@ func _process(_delta: float) -> void:
 	# If all enemies are dead, unlock the doors
 	if spawned_enemies.size() == 0:
 		unlock_doors()
+		if is_boss_room:
+			MusicManager.pop_track()
 		queue_free() # Remove the spawner
 
 func unlock_doors() -> void:

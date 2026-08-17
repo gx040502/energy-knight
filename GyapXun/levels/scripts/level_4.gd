@@ -34,6 +34,7 @@ func _ready() -> void:
 	_place_boss_room()
 	_print_dungeon()
 	_spawn_rooms()
+	MusicManager.play_track(MusicManager.LEVEL_TRACK)
 
 
 func _initialize_dungeon() -> void:

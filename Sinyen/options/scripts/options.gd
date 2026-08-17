@@ -16,7 +16,7 @@ var _sfx_bus: int = -1
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	_master_bus = _resolve_bus(&"Master")
 	_music_bus = _resolve_bus(&"Music")
@@ -93,3 +93,4 @@ func _on_sfx_value_changed(value: float) -> void:
 
 func _on_back_pressed() -> void:
 	closed.emit()
+	#get_tree().change_scene_to_file("res://Sinyen/main_menu/scenes/main_menu.tscn")
