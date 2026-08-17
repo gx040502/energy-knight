@@ -28,7 +28,7 @@ func _on_level_3_button_pressed():
 
 
 func _on_level_4_button_pressed():
-	get_tree().change_scene_to_file("res://Sinyen/levelSelection/scenes/level_1.tscn")
+	get_tree().change_scene_to_file("res://GyapXun/levels/scenes/level4.tscn")
 
 
 

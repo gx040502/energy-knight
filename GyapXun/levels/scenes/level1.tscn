@@ -3,13 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://bjqqa3xq4keyf" path="res://GyapXun/player/scenes/player.tscn" id="1_7oqau"]
 [ext_resource type="Script" uid="uid://bade1yxw32ka2" path="res://GyapXun/levels/scripts/level_1.gd" id="1_mwkg1"]
 [ext_resource type="PackedScene" uid="uid://bykrmqw17t51e" path="res://GyapXun/room/scenes/dungeon_room.tscn" id="2_gkgut"]
-[ext_resource type="PackedScene" uid="uid://dskaeqmjmwpj8" path="res://GyapXun/room/scenes/haaland_room.tscn" id="3_icauj"]
 [ext_resource type="Script" uid="uid://k7rfvfeqvsmi" path="res://GyapXun/levels/scripts/camera_2d.gd" id="4_iq3gp"]
 [ext_resource type="PackedScene" uid="uid://cykqbw2mjcjn3" path="res://Sinyen/pauseMenu/scenes/pause_menu.tscn" id="6_icauj"]
 
 [node name="Level1" type="Node2D" unique_id=847418784]
 script = ExtResource("1_mwkg1")
-room_scenes = Array[PackedScene]([ExtResource("2_gkgut"), ExtResource("3_icauj")])
+room_scenes = Array[PackedScene]([ExtResource("2_gkgut")])
 
 [node name="DungeonRoom" parent="." unique_id=212444310 instance=ExtResource("2_gkgut")]
 position = Vector2(3, -5)

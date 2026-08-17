@@ -102,7 +102,7 @@ func dash_away_from_player() -> void:
 	var elapsed = 0.0
 	while elapsed < dash_time:
 		if is_dead: break
-		velocity = escape_dir * 500.0 
+		velocity = escape_dir * 1000.0 
 		move_and_slide()
 		elapsed += get_physics_process_delta_time()
 		await get_tree().process_frame
@@ -110,7 +110,7 @@ func dash_away_from_player() -> void:
 	is_dashing = false
 	
 	# Dash Cooldown Timer (e.g., 2.0 seconds before they can dash again)
-	var dash_cooldown_timer = get_tree().create_timer(1.0)
+	var dash_cooldown_timer = get_tree().create_timer(0.1)
 	dash_cooldown_timer.timeout.connect(func():
 		can_dash = true
 	)
