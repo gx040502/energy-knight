@@ -8,6 +8,7 @@
 
 [node name="Level4" type="Node2D" unique_id=847418784]
 script = ExtResource("1_w6gcv")
+room_scenes = Array[PackedScene]([ExtResource("2_08cd7")])
 
 [node name="DungeonRoom" parent="." unique_id=212444310 instance=ExtResource("2_08cd7")]
 position = Vector2(3, -5)
