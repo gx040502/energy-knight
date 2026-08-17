@@ -21,7 +21,13 @@
 [ext_resource type="Texture2D" uid="uid://c0mm7mw78podt" path="res://GyapXun/animations/walk/walk2.png" id="15_qja0k"]
 [ext_resource type="Texture2D" uid="uid://ekbas0j25cue" path="res://GyapXun/animations/walk/walk3.png" id="16_5p363"]
 [ext_resource type="Texture2D" uid="uid://b60cive1napwr" path="res://GyapXun/animations/walk/walk4.png" id="17_bfa6d"]
-[ext_resource type="PackedScene" uid="uid://dqqeja6mh50tr" path="res://Sinyen/scenes/hud.tscn" id="22_g31jf"]
+[ext_resource type="PackedScene" uid="uid://dqqeja6mh50tr" path="res://Sinyen/player_hud/scenes/hud.tscn" id="22_g31jf"]
+[ext_resource type="AudioStream" uid="uid://btl1byq7yhfpf" path="res://GyapXun/sfx/dash/dragon-studio-whoosh-cinematic-5-376880.mp3" id="23_la1jf"]
+[ext_resource type="AudioStream" uid="uid://bfvoubpqdbieh" path="res://GyapXun/sfx/melee/swing3.wav" id="24_enmwg"]
+[ext_resource type="AudioStream" uid="uid://88gixifcj8sd" path="res://GyapXun/sfx/explosion/spell.wav" id="25_enmwg"]
+[ext_resource type="AudioStream" uid="uid://x7p7ji765u6k" path="res://GyapXun/sfx/explosion/explosion01.ogg" id="25_t5vx1"]
+[ext_resource type="AudioStream" uid="uid://dr5fsd3mfy4c8" path="res://GyapXun/sfx/takedamage/01._damage_grunt_male.wav" id="27_t5vx1"]
+[ext_resource type="AudioStream" uid="uid://bhnlkpv72l81f" path="res://GyapXun/sfx/debuff/debuff2.wav" id="28_t5vx1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chlmu"]
 animations = [{
@@ -121,7 +127,7 @@ script = ExtResource("1_nmnwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=370924242]
 sprite_frames = SubResource("SpriteFrames_chlmu")
-animation = &"dash"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=944439433]
 position = Vector2(5, -1)
@@ -131,6 +137,36 @@ shape = SubResource("RectangleShape2D_o8nig")
 wait_time = 0.12
 
 [node name="Hud" parent="." unique_id=913466994 instance=ExtResource("22_g31jf")]
+
+[node name="FootstepsSFX" type="AudioStreamPlayer" parent="." unique_id=1727867988]
+bus = &"SFX"
+
+[node name="DashSFX" type="AudioStreamPlayer" parent="." unique_id=247560584]
+stream = ExtResource("23_la1jf")
+bus = &"SFX"
+
+[node name="MeleeAttackSFX" type="AudioStreamPlayer" parent="." unique_id=755408325]
+stream = ExtResource("24_enmwg")
+bus = &"SFX"
+
+[node name="SpellCastSFX" type="AudioStreamPlayer" parent="." unique_id=918607991]
+stream = ExtResource("25_enmwg")
+bus = &"SFX"
+
+[node name="ExplosionBlastSFX" type="AudioStreamPlayer" parent="." unique_id=1998408266]
+stream = ExtResource("25_t5vx1")
+bus = &"SFX"
+
+[node name="TakeDamageSFX" type="AudioStreamPlayer" parent="." unique_id=2001154314]
+stream = ExtResource("27_t5vx1")
+bus = &"SFX"
+
+[node name="StaminaDebuffSFX" type="AudioStreamPlayer" parent="." unique_id=325874108]
+stream = ExtResource("28_t5vx1")
+bus = &"SFX"
+
+[node name="FootstepTimer" type="Timer" parent="." unique_id=304232900]
+wait_time = 0.45
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 

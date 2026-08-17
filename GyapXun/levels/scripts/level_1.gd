@@ -117,6 +117,11 @@ func _spawn_rooms() -> void:
 					var spawner_node = Node2D.new()
 					spawner_node.set_script(spawner_script)
 					room_instance.add_child(spawner_node)
+					
+					var hazard_script = load("res://JunZhi/spawner/hazard_spawner.gd")
+					var hazard_node = Node2D.new()
+					hazard_node.set_script(hazard_script)
+					room_instance.add_child(hazard_node)
 				
 				add_child(room_instance)
 				

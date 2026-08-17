@@ -3,6 +3,7 @@ class_name EnemySpawner
 
 var scout_scene = preload("res://ChiHong/enemies/scout.tscn")
 var kb_scout_scene = preload("res://JunZhi/enemies/knockback_scout.tscn")
+var mage_scene = preload("res://JunZhi/enemies/mage.tscn")
 
 var spawned_enemies: Array = []
 var barriers: Array = []
@@ -16,18 +17,6 @@ func _ready() -> void:
 func _on_room_entered(room: Node2D) -> void:
 	if room == room_node and not has_spawned:
 		has_spawned = true
-		
-		# Check if this is the start room
-		# In level_1.gd, level_1 start room is placed at start, and the player is moved there.
-		# check if the player is close to the center of the room at spawn, 
-		# or if the level's _start coordinate corresponds to this room.
-		# if this room is where the player is positioned at the start, don't spawn enemies
-		var dist_to_player = (player_pos() - room_node.global_position - Vector2(576, 324)).length()
-		if dist_to_player < 150.0:
-			# Player started here, no enemies.
-			queue_free()
-			return
-			
 		spawn_wave()
 
 func player_pos() -> Vector2:
@@ -42,9 +31,16 @@ func spawn_wave() -> void:
 	# Spawn 1-3 random enemies
 	var count = randi_range(1, 3)
 	for i in range(count):
-		# 70% Scout, 30% Knockback Scout
-		var is_kb = randf() < 0.35
-		var enemy_instance = (kb_scout_scene if is_kb else scout_scene).instantiate()
+		# 50% Scout, 30% Knockback Scout, 20% Mage
+		var roll = randf()
+		var enemy_scene
+		if roll < 0.50:
+			enemy_scene = scout_scene
+		elif roll < 0.80:
+			enemy_scene = kb_scout_scene
+		else:
+			enemy_scene = mage_scene
+		var enemy_instance = enemy_scene.instantiate()
 		
 		# Pick a random spawn position within room inner bounds
 		var spawn_x = randf_range(250, 900)
