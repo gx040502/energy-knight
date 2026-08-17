@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://btscnmonarch12c"]
+[gd_scene format=3 uid="uid://dswlf4advgovw"]
 
 [ext_resource type="Script" uid="uid://dy9monarch1q2ab" path="res://JunZhi/enemies/monarch.gd" id="1_monarch"]
 [ext_resource type="Texture2D" uid="uid://mh0508gr10kd" path="res://ChiHong/enemies/spritesheet.png" id="2_monarch"]
