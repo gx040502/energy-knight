@@ -51,6 +51,23 @@ animations = [{
 "texture": SubResource("AtlasTexture_lb6c7")
 }],
 "loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_477d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug30b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dmt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lb6c7")
+}],
+"loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -87,8 +104,8 @@ script = ExtResource("1_kbscout")
 position = Vector2(0, -1)
 scale = Vector2(1, 1.03125)
 sprite_frames = SubResource("SpriteFrames_kbscout")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1469711373]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1469711373 groups=["enemies"]]
 shape = SubResource("CapsuleShape2D_usyjn")

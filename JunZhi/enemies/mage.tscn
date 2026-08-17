@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://dj1cxjh4pewh4"]
 
-[ext_resource type="Script" uid="uid://cx8mage1kzab4d" path="res://JunZhi/enemies/mage.gd" id="1_mage"]
+[ext_resource type="Script" uid="uid://dc78u3vr0l6or" path="res://JunZhi/enemies/mage.gd" id="1_mage"]
 [ext_resource type="Texture2D" uid="uid://mh0508gr10kd" path="res://ChiHong/enemies/spritesheet.png" id="2_mage"]
 
-; --- Idle frames (row y=0, 4 × 64 px wide) ---
 [sub_resource type="AtlasTexture" id="AtlasTexture_mage_i0"]
 atlas = ExtResource("2_mage")
 region = Rect2(0, 0, 64, 64)
@@ -20,7 +19,6 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("2_mage")
 region = Rect2(192, 0, 64, 64)
 
-; --- Walk frames (row y=64) ---
 [sub_resource type="AtlasTexture" id="AtlasTexture_mage_w0"]
 atlas = ExtResource("2_mage")
 region = Rect2(0, 64, 64, 64)
@@ -39,12 +37,36 @@ region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mage"]
 animations = [{
-"frames": [{ "duration": 1.0, "texture": SubResource("AtlasTexture_mage_i0") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_i1") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_i2") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_i3") }],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_i0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_i2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_i3")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [{ "duration": 1.0, "texture": SubResource("AtlasTexture_mage_w0") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_w1") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_w2") }, { "duration": 1.0, "texture": SubResource("AtlasTexture_mage_w3") }],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mage_w3")
+}],
 "loop": true,
 "name": &"walk",
 "speed": 5.0
@@ -54,52 +76,45 @@ animations = [{
 radius = 25.0
 height = 84.0
 
-; Large detection circle (~250 px radius)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mage_detect"]
 radius = 250.0
 
-; Small flee/proximity circle (~110 px radius)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mage_flee"]
 radius = 110.0
 
-; --- Scene tree ---
-[node name="Mage" type="CharacterBody2D" groups=["enemies"]]
+[node name="Mage" type="CharacterBody2D" unique_id=1002057991 groups=["enemies"]]
 z_index = 8
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_mage")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1398969214]
 position = Vector2(0, -1)
-scale = Vector2(1.0, 1.03)
+scale = Vector2(1, 1.03)
 sprite_frames = SubResource("SpriteFrames_mage")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=525675166]
 shape = SubResource("CapsuleShape2D_mage")
 
-; Detection area – mask=1 so it detects bodies on the player layer
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="DetectionArea" type="Area2D" parent="." unique_id=793850476]
 collision_layer = 0
-collision_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1704513131]
 shape = SubResource("CircleShape2D_mage_detect")
 
-; Flee area – mask=1, smaller radius
-[node name="FleeArea" type="Area2D" parent="."]
+[node name="FleeArea" type="Area2D" parent="." unique_id=181136502]
 collision_layer = 0
-collision_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FleeArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FleeArea" unique_id=2107382]
 shape = SubResource("CircleShape2D_mage_flee")
 
-[node name="Telegraph" type="Timer" parent="."]
+[node name="Telegraph" type="Timer" parent="." unique_id=1220646074]
 wait_time = 0.8
 one_shot = true
 
-[node name="Cooldown" type="Timer" parent="."]
+[node name="Cooldown" type="Timer" parent="." unique_id=1798115213]
 wait_time = 3.0
 one_shot = true

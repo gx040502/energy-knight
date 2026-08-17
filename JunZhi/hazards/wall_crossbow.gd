@@ -32,14 +32,9 @@ func _fire_bolt() -> void:
 	bolt.bolt_damage = bolt_damage
 
 	# Add to the scene tree FIRST so global_position has a valid parent
-	# transform. Setting it before add_child makes Godot store the
-	# world-space value as a local position, putting the bolt off-screen.
 	get_parent().add_child(bolt)
 	bolt.global_position = global_position + direction.normalized() * 60.0
 
-	# Auto-destroy bolt after lifetime (acts as a range limiter)
+	# Auto-destroy bolt after lifetime safely without using inline lambda captures
 	var life_timer := get_tree().create_timer(bolt_lifetime)
-	life_timer.timeout.connect(func() -> void:
-		if is_instance_valid(bolt):
-			bolt.queue_free()
-	)
+	life_timer.timeout.connect(bolt.queue_free)
