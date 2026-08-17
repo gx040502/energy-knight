@@ -1,7 +1,6 @@
 extends EnemyBase
 class_name MonarchBoss
 
-# --- MONARCH BOSS (Milestone 2 - Khor Jun Zhi) ---
 # The Monarch cycles between two phases:
 #   SHIELDED   – Fully immune to damage. Shield pulses blue. Lasts shield_duration seconds.
 #   VULNERABLE – Shield drops. Monarch chases and attacks. Lasts vulnerable_duration seconds.
@@ -97,9 +96,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# ---------------------------------------------------------------------------
 # TELEGRAPHED ATTACK
-# ---------------------------------------------------------------------------
 func _start_telegraph() -> void:
 	can_attack = false
 	current_state = State.TELEGRAPH
@@ -134,9 +131,7 @@ func _execute_attack() -> void:
 	)
 
 
-# ---------------------------------------------------------------------------
 # DAMAGE + SHIELD LOGIC
-# ---------------------------------------------------------------------------
 func take_damage(amount: float, knockback: Vector2) -> void:
 	if shield_up:
 		# Shield is up – absorb hit, flash blue to communicate immunity
@@ -171,9 +166,7 @@ func die() -> void:
 	queue_free()
 
 
-# ---------------------------------------------------------------------------
 # _draw()  – shield glow (SHIELDED) + telegraph ring (TELEGRAPH)
-# ---------------------------------------------------------------------------
 func _draw() -> void:
 	# Pulsing blue shield ring
 	if shield_up:

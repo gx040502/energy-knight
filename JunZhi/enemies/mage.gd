@@ -1,7 +1,6 @@
 extends EnemyBase
 class_name MageEnemy
 
-# --- MAGE AI (Milestone 2 - Khor Jun Zhi) ---
 # The Mage uses line-of-sight proximity detection:
 #   DetectionArea (large) → starts chasing / enters combat
 #   FleeArea (small)      → teleports away when player gets too close
@@ -74,8 +73,8 @@ func _physics_process(_delta: float) -> void:
 		State.TELEGRAPH:
 			velocity = Vector2.ZERO
 			sprite.play("idle")
-			# aoe_center was locked at telegraph start – do NOT update it here
-			# so the ring stays fixed and the player can dodge by moving away.
+			# aoe_center was locked at telegraph start
+			# so the ring stays fixed at the position and the player can dodge by moving away.
 			if telegraph_timer.wait_time > 0.0:
 				aoe_ratio = 1.0 - (telegraph_timer.time_left / telegraph_timer.wait_time)
 			queue_redraw()
@@ -88,9 +87,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 
-# ---------------------------------------------------------------------------
 # DETECTION AREA  (large circle – triggers Chase)
-# ---------------------------------------------------------------------------
 func _on_detection_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and current_state == State.IDLE:
 		current_state = State.CHASE
@@ -101,9 +98,7 @@ func _on_detection_body_exited(body: Node2D) -> void:
 		current_state = State.IDLE
 
 
-# ---------------------------------------------------------------------------
 # FLEE AREA  (small circle – triggers Teleport)
-# ---------------------------------------------------------------------------
 func _on_flee_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# Don't interrupt an already-active telegraph or cast
@@ -111,9 +106,7 @@ func _on_flee_body_entered(body: Node2D) -> void:
 			teleport_away()
 
 
-# ---------------------------------------------------------------------------
 # TELEPORT
-# ---------------------------------------------------------------------------
 func teleport_away() -> void:
 	if is_dead:
 		return
@@ -150,9 +143,7 @@ func teleport_away() -> void:
 	)
 
 
-# ---------------------------------------------------------------------------
 # TELEGRAPH  (lock target position and show expanding ring)
-# ---------------------------------------------------------------------------
 func _start_telegraph() -> void:
 	if is_dead or player == null:
 		return
@@ -169,9 +160,7 @@ func _on_telegraph_timeout() -> void:
 	cooldown_timer.start()
 
 
-# ---------------------------------------------------------------------------
 # CAST  (spawn AoE damage area at locked position)
-# ---------------------------------------------------------------------------
 func _execute_cast() -> void:
 	if is_dead:
 		return
@@ -207,9 +196,7 @@ func _on_cooldown_timeout() -> void:
 	current_state = State.CHASE if (not is_dead and player != null) else State.IDLE
 
 
-# ---------------------------------------------------------------------------
 # _draw()  – telegraph ring expands from aoe_center towards AOE_RADIUS
-# ---------------------------------------------------------------------------
 func _draw() -> void:
 	if current_state == State.TELEGRAPH and aoe_ratio > 0.0:
 		var local_center := to_local(aoe_center)
