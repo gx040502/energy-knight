@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://diy120on2da5k"]
+
+[ext_resource type="Script" uid="uid://cloe81283drso" path="res://GyapXun/levels/scripts/level_4.gd" id="1_w6gcv"]
+[ext_resource type="PackedScene" uid="uid://bykrmqw17t51e" path="res://GyapXun/room/scenes/dungeon_room.tscn" id="2_08cd7"]
+[ext_resource type="PackedScene" uid="uid://bjqqa3xq4keyf" path="res://GyapXun/player/scenes/player.tscn" id="4_odhle"]
+[ext_resource type="Script" uid="uid://k7rfvfeqvsmi" path="res://GyapXun/levels/scripts/camera_2d.gd" id="5_7223n"]
+[ext_resource type="PackedScene" uid="uid://cykqbw2mjcjn3" path="res://Sinyen/pauseMenu/scenes/pause_menu.tscn" id="6_pjhpa"]
+
+[node name="Level4" type="Node2D" unique_id=847418784]
+script = ExtResource("1_w6gcv")
+
+[node name="DungeonRoom" parent="." unique_id=212444310 instance=ExtResource("2_08cd7")]
+position = Vector2(3, -5)
+
+[node name="Player" parent="." unique_id=629869734 instance=ExtResource("4_odhle")]
+position = Vector2(289, 222)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1558679386]
+position = Vector2(-174, -104)
+anchor_mode = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("5_7223n")
+
+[node name="PauseMenu" parent="." unique_id=1007587394 instance=ExtResource("6_pjhpa")]
