@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://btscnmage11bc2"]
+[gd_scene format=3 uid="uid://dj1cxjh4pewh4"]
 
 [ext_resource type="Script" uid="uid://cx8mage1kzab4d" path="res://JunZhi/enemies/mage.gd" id="1_mage"]
 [ext_resource type="Texture2D" uid="uid://mh0508gr10kd" path="res://ChiHong/enemies/spritesheet.png" id="2_mage"]
