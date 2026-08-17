@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dch14wc666vu0"]
+
+[ext_resource type="Script" uid="uid://58bm0wuvlo7w" path="res://ChiHong/enemies/arrow.gd" id="1_l0eug"]
+[ext_resource type="Texture2D" uid="uid://bk6ytf4yc7lcx" path="res://ChiHong/enemies/Basic Arrow.png" id="2_haw10"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xt4w"]
+size = Vector2(20, 7)
+
+[node name="Arrow" type="Area2D" unique_id=1817244000]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_l0eug")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1771075868]
+position = Vector2(-0.5, 0)
+scale = Vector2(0.96875, 1)
+texture = ExtResource("2_haw10")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1400620303]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_2xt4w")

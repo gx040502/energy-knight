@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bywd2p83et6bo"]
+
+[ext_resource type="Script" uid="uid://crvtccwsq6c2n" path="res://ChiHong/trap/SpikeTrap.gd" id="1_fxk1n"]
+[ext_resource type="Texture2D" uid="uid://td71swnofds0" path="res://ChiHong/trap/spike Trap1.png" id="2_0vt1t"]
+[ext_resource type="Texture2D" uid="uid://yifgylpdqi6y" path="res://ChiHong/trap/spike Trap2.png" id="3_hshan"]
+[ext_resource type="Texture2D" uid="uid://cfrynjt2ptkmt" path="res://ChiHong/trap/spike Trap3.png" id="4_ojmfu"]
+[ext_resource type="Texture2D" uid="uid://buc4j5a1ga2rr" path="res://ChiHong/trap/spike Trap4.png" id="5_bce1f"]
+[ext_resource type="Texture2D" uid="uid://b2vcap7705w7" path="res://ChiHong/trap/spike Trap5.png" id="6_0qevk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j7vx"]
+size = Vector2(18, 9.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_apgxt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hshan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ojmfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bce1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0qevk")
+}],
+"loop": true,
+"name": &"spike_active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0vt1t")
+}],
+"loop": true,
+"name": &"spike_idle",
+"speed": 5.0
+}]
+
+[node name="SpikeTrap" type="Area2D" unique_id=1202619593]
+script = ExtResource("1_fxk1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1033962190]
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_2j7vx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1801448591]
+sprite_frames = SubResource("SpriteFrames_apgxt")
+animation = &"spike_active"
