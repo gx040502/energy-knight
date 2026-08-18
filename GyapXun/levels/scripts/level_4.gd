@@ -13,6 +13,7 @@ extends Node2D
 @export var room_spacing: Vector2 = Vector2(1152, 648) # Must match your room size in pixels.
 
 @onready var player: CharacterBody2D = $Player
+@onready var minimap: Control = $MinimapLayer/Minimap
 
 const SPAWNER_SCRIPT_PATH: String = "res://JunZhi/spawner/enemy_spawner.gd"
 const HAZARD_SCRIPT_PATH: String = "res://JunZhi/spawner/hazard_spawner.gd"
@@ -21,23 +22,33 @@ const BOSS_SCRIPT_PATH: String = "res://JunZhi/spawner/enemy_spawner_level4.gd"
 var dungeon: Array = []
 var _branch_candidates: Array[Vector2i] = []
 var _critical_path_end: Vector2i = Vector2i(-1, -1)
+var _room_cells: Dictionary = {}
 
 
 func _ready() -> void:
 	if room_scenes.is_empty():
 		push_error("Level 4: 'room_scenes' is empty. Assign at least one room scene in the Inspector.")
 		return
+
 	_initialize_dungeon()
 	_place_entrance()
 	_generate_critical_path(_start, _critical_path_length, "C")
 	_generate_branches()
 	_place_boss_room()
 	_print_dungeon()
+
+	# Feed the finished grid to the minimap, then connect BEFORE spawning:
+	# _spawn_rooms() emits Events.room_entered for the starting room, so the
+	# highlight lands on the spawn cell with no special-case code.
+	minimap.setup(dungeon, _dimensions)
+	Events.room_entered.connect(_on_room_entered)
+
 	_spawn_rooms()
 	MusicManager.play_track(MusicManager.LEVEL_TRACK)
 
 
 func _initialize_dungeon() -> void:
+	dungeon.clear()
 	for x: int in _dimensions.x:
 		dungeon.append([])
 		for y: int in _dimensions.y:
@@ -165,7 +176,7 @@ func _spawn_rooms() -> void:
 			var scene_to_spawn: PackedScene = room_scenes.pick_random()
 			if room_type == "B" and boss_room_scene != null:
 				scene_to_spawn = boss_room_scene
-			
+
 			if scene_to_spawn == null:
 				push_warning("Null room scene at cell (%d, %d) — skipping." % [x, y])
 				continue
@@ -173,6 +184,10 @@ func _spawn_rooms() -> void:
 			var room_instance: Node2D = scene_to_spawn.instantiate()
 			var pixel_position: Vector2 = Vector2(x * room_spacing.x, y * room_spacing.y)
 			room_instance.position = pixel_position
+
+			# Remember which grid cell this room came from so the minimap can
+			# translate an Events.room_entered signal back into a coordinate.
+			_room_cells[room_instance] = Vector2i(x, y)
 
 			# Check grid neighbours so the room knows which walls to open.
 			# The bounds checks keep us from reading outside the array.
@@ -192,7 +207,7 @@ func _spawn_rooms() -> void:
 				_attach_module(room_instance, SPAWNER_SCRIPT_PATH)
 				_attach_module(room_instance, HAZARD_SCRIPT_PATH)
 
-			add_child(room_instance)   # <-- restore this
+			add_child(room_instance)
 
 			if room_type == "S":
 				player.global_position = pixel_position + (room_spacing / 2.0)
@@ -210,3 +225,8 @@ func _attach_module(room_instance: Node2D, script_path: String) -> Node2D:
 	module_node.set_script(module_script)
 	room_instance.add_child(module_node)
 	return module_node
+
+
+func _on_room_entered(room: Node2D) -> void:
+	if _room_cells.has(room):
+		minimap.set_current_cell(_room_cells[room])

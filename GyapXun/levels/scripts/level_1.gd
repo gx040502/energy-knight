@@ -6,27 +6,74 @@ extends Node2D
 @export var _branch_length : Vector2i = Vector2i(1,4)
 @export var room_scenes : Array[PackedScene]
 @export var room_spacing : Vector2 = Vector2(1152, 648) # Change this to your exact room size in pixels!
+@export var use_authored_layout: bool = false
+@export var authored_layout: Array[String] = [
+	".BCS...",
+	".113...",
+	"..2333.",
+	".......",
+	"......."
+]
 @onready var player: CharacterBody2D = $Player
+@onready var minimap: Control = $MinimapLayer/Minimap
 
-var dungeon :Array
-var _branch_candidates : Array[Vector2i]
+var dungeon: Array = []
+var _branch_candidates: Array[Vector2i] = []
+var _room_cells: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_initialize_dungeon()
-	_place_entrance()
-	_generate_critical_path(_start, _critical_path_length, "C")
-	_generate_branches()
+	if use_authored_layout:
+		_load_authored_layout()
+	else:
+		_initialize_dungeon()
+		_place_entrance()
+		_generate_critical_path(_start, _critical_path_length, "C")
+		_generate_branches()
+
 	_print_dungeon()
+	minimap.setup(dungeon, _dimensions)
+	Events.room_entered.connect(_on_room_entered)
 	_spawn_rooms()
-	
+
 	MusicManager.play_track(MusicManager.LEVEL_TRACK)
 
 func _initialize_dungeon() -> void:
-	for x in _dimensions.x:
+	dungeon.clear()
+	for x: int in _dimensions.x:
 		dungeon.append([])
-		for y in _dimensions.y:
+		for y: int in _dimensions.y:
 			dungeon[x].append(0)
+
+func _load_authored_layout() -> void:
+	if authored_layout.is_empty():
+		push_error("Level 1: 'authored_layout' is empty. Untick 'use_authored_layout' or supply rows.")
+		return
+
+	# Derive the grid size from the rows so _dimensions can never drift out of sync.
+	var width: int = 0
+	for row: String in authored_layout:
+		width = maxi(width, row.length())
+	_dimensions = Vector2i(width, authored_layout.size())
+
+	_initialize_dungeon()
+
+	var start_found: bool = false
+	for y: int in _dimensions.y:
+		var row: String = authored_layout[y]
+		for x: int in _dimensions.x:
+			if x >= row.length():
+				continue
+			var symbol: String = row[x]
+			if symbol == "." or symbol == " ":
+				continue
+			dungeon[x][y] = symbol
+			if symbol == "S":
+				_start = Vector2i(x, y)
+				start_found = true
+
+	if not start_found:
+		push_error("Level 1: 'authored_layout' has no 'S' cell — the player has nowhere to spawn.")
 
 func _print_dungeon() -> void:
 	var dungeon_as_string : String = ""
@@ -100,6 +147,7 @@ func _spawn_rooms() -> void:
 				var room_instance = random_scene.instantiate()
 				var pixel_position = Vector2(x * room_spacing.x, y * room_spacing.y)
 				room_instance.position = pixel_position
+				_room_cells[room_instance] = Vector2i(x, y)
 				
 				# --- NEW CODE: Check the Grid Neighbors ---
 				# We use "and" to make sure we don't look outside the edges of the array and crash the game!
@@ -133,5 +181,6 @@ func _spawn_rooms() -> void:
 					move_child(player, get_child_count() - 1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_room_entered(room: Node2D) -> void:
+	if _room_cells.has(room):
+		minimap.set_current_cell(_room_cells[room])
